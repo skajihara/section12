@@ -9,7 +9,11 @@ const isShow = ref(true)
   <Transition name="fade">
     <div v-if="isShow">Hello</div>
   </Transition>
+  <Transition name="slide">
+    <div v-if="isShow">Hello</div>
+  </Transition>
 </template>
+
 <style scoped>
 .fade-enter-from {
   opacity: 0;
@@ -28,5 +32,21 @@ const isShow = ref(true)
 }
 .fade-leave-to {
   opacity: 0;
+}
+.slide-enter-active {
+  animation: slide 1s;
+}
+.slide-leave-active {
+  animation: slide 1s reverse;
+}
+@keyframes slide {
+  0% {
+    transform: translateX(20px);
+    opacity: 0;
+  }
+  100% {
+    transform: translate(0px);
+    opacity: 1;
+  }
 }
 </style>
