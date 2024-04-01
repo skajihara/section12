@@ -6,19 +6,19 @@ const isShow = ref(true)
 <template>
   <h1>Animation</h1>
   <button @click="isShow = !isShow">switch</button>
-  <Transition name="fade" appear>
-    <div v-if="isShow">Hello</div>
-  </Transition>
-  <Transition name="slide" appear>
-    <div v-if="isShow">Hello</div>
+  <Transition
+    name="custom-classes"
+    enter-active-class="animate__animated animate__bounce"
+    leave-active-class="animate__animated animate__shakeX"
+  >
+    <div v-if="isShow">Hello Fade</div>
   </Transition>
 </template>
-
 <style scoped>
 .fade-enter-from {
   opacity: 0;
 }
-.fade-enter-active {
+.hello {
   transition: opacity 1s;
 }
 .fade-enter-to {
@@ -32,21 +32,5 @@ const isShow = ref(true)
 }
 .fade-leave-to {
   opacity: 0;
-}
-.slide-enter-active {
-  animation: slide 1s;
-}
-.slide-leave-active {
-  animation: slide 1s reverse;
-}
-@keyframes slide {
-  0% {
-    transform: translateX(20px);
-    opacity: 0;
-  }
-  100% {
-    transform: translate(0px);
-    opacity: 1;
-  }
 }
 </style>
