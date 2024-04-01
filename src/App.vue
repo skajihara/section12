@@ -6,10 +6,10 @@ const isShow = ref(true)
 <template>
   <h1>Animation</h1>
   <button @click="isShow = !isShow">switch</button>
-  <Transition name="fade">
+  <Transition name="fade" appear>
     <div v-if="isShow">Hello</div>
   </Transition>
-  <Transition name="slide">
+  <Transition name="slide" appear>
     <div v-if="isShow">Hello</div>
   </Transition>
 </template>
