@@ -1,47 +1,37 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
+import { ref } from 'vue'
+
+const isShow = ref(true)
 </script>
-
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-    </div>
-  </header>
-
-  <main>
-    <TheWelcome />
-  </main>
+  <h1>Animation</h1>
+  <div v-if="isShow" :class="{ 'opacity-80': isShow, 'opacity-20': !isShow, slide: !isShow }">
+    Hello
+  </div>
+  <button @click="isShow = !isShow">Show</button>
 </template>
-
 <style scoped>
-header {
-  line-height: 1.5;
+div {
+  transition: opacity 1s;
 }
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
+.slide {
+  animation: slide 1s;
 }
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
+.opacity-80 {
+  opacity: 0.8;
+}
+.opacity-20 {
+  opacity: 0.2;
+}
+@keyframes slide {
+  0% {
+    transform: translateX(0);
   }
-
-  .logo {
-    margin: 0 2rem 0 0;
+  50% {
+    transform: translateX(100px);
   }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
+  100% {
+    transform: translateX(0);
   }
 }
 </style>
