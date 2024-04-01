@@ -4,9 +4,19 @@ import { ref } from 'vue'
 const isShow = ref(true)
 function beforeEnter(el) {
   console.log('beforeEnter', el)
+  el.style.transform = 'translateX(30px)'
 }
-function enter(el) {
+function enter(el, done) {
   console.log('enter', el)
+  let translateXValue = 30
+  const intervalId = setInterval(() => {
+    translateXValue -= 1
+    el.style.transform = `translateX(${translateXValue}px)`
+    if (translateXValue === 0) {
+      clearInterval(intervalId)
+      done()
+    }
+  }, 20)
 }
 function afterEnter(el) {
   console.log('afterEnter', el)
@@ -14,8 +24,17 @@ function afterEnter(el) {
 function beforeLeave(el) {
   console.log('beforeLeave', el)
 }
-function leave(el) {
+function leave(el, done) {
   console.log('leave', el)
+  let translateXValue = 0
+  const intervalId = setInterval(() => {
+    translateXValue += 1
+    el.style.transform = `translateX(${translateXValue}px)`
+    if (translateXValue === 30) {
+      clearInterval(intervalId)
+      done()
+    }
+  }, 20)
 }
 function afterLeave(el) {
   console.log('afterLeave', el)
@@ -25,7 +44,7 @@ function afterLeave(el) {
   <h1>Animation</h1>
   <button @click="isShow = !isShow">switch</button>
   <Transition
-    name="fade"
+    :css="false"
     @before-enter="beforeEnter"
     @enter="enter"
     @after-enter="afterEnter"
